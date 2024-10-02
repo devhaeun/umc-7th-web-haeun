@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>animation 실습</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            margin-left: 30px;
+            position: relative;
+            background-color: purple;
+            border-radius: 50%;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        @keyframes bounce {
+            from {
+                transform: translateY(0) scaleX(1);
+            }
+            63% {
+                transform: translateY(230px) scaleX(1.2);
+            }
+            63.5% {
+                transform: translateY(225px) scaleX(1.2);
+            }
+            to {
+                transform: translateY(0) scaleX(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+</body>
+</html>

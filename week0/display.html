@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display 비교</title>
+</head>
+<style>
+    h1 {
+        font-size: 1.5em;
+    }
+    h3 {
+        background-color: red;
+        color: white;
+    }
+    span {
+        background-color: blue;
+        color: white;
+    }
+    
+    .size {
+        width: 200px;
+        height: 100px;
+    }
+</style>
+<body>
+    <h1>1. block 요소 사용</h1>
+    <h3>block</h3>
+    <h3>block</h3>
+    <h3>block</h3>
+    <h3 class="size">block: width, height 속성 지정</h3>
+    <p>
+        block 요소는 한 줄을 꽉 차지하며,
+        width, height 속성을 지정할 수 있다.
+    </p>
+
+    <h1>2. inline 요소 사용</h1>
+    <span>inline</span>
+    <span>inline</span>
+    <span>inline</span>
+    <span class="size">inline: width, height 속성 지정</span>
+    <p>
+        inline 요소는 본인 크기 만큼만 차지하며,
+        width, height 속성을 지정할 수 없다.
+    </p>
+
+    <h1>3. inline-block 요소 사용</h1>
+    <button>inline-block</button>
+    <button>inline-block</button>
+    <button>inline-block</button>
+    <button class="size">inline-block: width, height 속성 지정</button>
+    <p>
+        inline-block 요소는 본인 크기 만큼만 차지하며,
+        width, height 속성을 지정할 수 있다.
+    </p>
+
+</body>
+</html>

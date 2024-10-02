@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UMC Study Plan</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div id="container">
+        <div id="head">
+            <h1>UMC Study Plan</h1>
+        </div>
+        <main>
+            <div id="inputBox">
+                <form id="inputForm">
+                    <input
+                    type="text"
+                    placeholder="스터디 계획을 작성해보세요!"
+                    >
+                    <!-- <button id="inputBtn">click!</button> -->
+                </form>
+            </div>
+            <div id="lists">
+                <div id="todo" class="list-box">
+                    <div class="list-title">해야 할 일</div>
+                    <ul id="todo-cnts" class="list-contents"></ul>
+                </div>
+                <div id="complete" class="list-box">
+                    <div class="list-title">해낸 일</div>
+                    <ul id="complete-cnts" class="list-contents"></ul>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="./StudyPlan.js"></script>
+</body>
+</html>

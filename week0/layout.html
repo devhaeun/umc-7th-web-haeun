@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>layout</title>
+    <style>
+        * {
+            margin: 0;
+            box-sizing: border-box;
+            color: white;
+            font-size: large;
+            font-weight: bold;
+            text-align: center;
+        }
+        #container {
+            width: 580px;
+            height: 703px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .r1 {
+            flex: 1;
+            display: flex;
+        }
+        #header {
+            background-color: black;
+            flex: 1;
+        }
+        #menu {
+            background-color: red;
+            flex: 3;
+        }
+
+        .r2 {
+            background-color: cornflowerblue;
+            flex: 3.5;
+        }
+        .r3 {
+            flex: 4;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+        }
+        #main {
+            background-color: darkslategray;
+        }
+        .grid-right {
+            grid-column: 3 / 4;
+            display: flex;
+            flex-direction: column;
+        }
+        #image {
+            background-color: skyblue;
+            flex: 1;
+            color: black;
+        }
+        #extra {
+            background-color: mediumseagreen;
+            flex: 1;
+            color: black;
+        }
+        #banner {
+            background-color: gold;
+            flex: 1.5;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div class="r1">
+            <div id="header">HEADER</div>
+            <div id="menu">MENU</div>
+        </div>
+        <div class="r2">HERO</div>
+        <div class="r3">
+            <div id="main">MAIN</div>
+            <div class="grid-right">
+                <div id="image">IMAGE</div>
+                <div id="extra">EXTRA</div>
+            </div>
+        </div>
+        <div id="banner">BANNER</div>
+    </div>
+</body>
+</html>
