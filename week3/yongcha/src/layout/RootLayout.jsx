@@ -27,7 +27,7 @@ const RootContainer = styled.div`
 `
 
 const MainContainer = styled.div`
-    background-color: darkblue;
+    background-color: rgb(28, 40, 51);
     height: auto;
     min-height: 100%;
     display: flex;
