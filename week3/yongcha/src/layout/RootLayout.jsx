@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 const RootLayout = () => {
     return (
-        <>
+        <ScrollDiv>
             <RootContainer>
                 <Navbar />
                 <MainContainer>
@@ -15,7 +15,7 @@ const RootLayout = () => {
                     </OutletContainer>
                 </MainContainer>
             </RootContainer>
-        </>
+        </ScrollDiv>
     )
 };
 
@@ -36,5 +36,22 @@ const MainContainer = styled.div`
 const OutletContainer = styled.div`
     // display: inline-block;
     padding: 20px;
-
 `
+
+const ScrollDiv = styled.div`
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+        border-radius: 6px;
+    }
+    
+    &::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.4)
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 6px;
+    }
+`;
