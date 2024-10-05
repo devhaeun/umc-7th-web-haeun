@@ -17,6 +17,7 @@ export default MovieCard
 
 const MovieCardDiv = styled.div`
     height: 230px;
+    width: 120px;
 `
 
 const MoviePosterImg = styled.img`
