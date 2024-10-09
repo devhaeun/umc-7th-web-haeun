@@ -1,0 +1,100 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+body {
+    min-height: 100vh;
+}
+button {
+    border: 0;
+    background-color: inherit;
+    cursor: pointer;
+}
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 88px;
+    padding: 24px;
+}
+.nav-right {
+    display: flex;
+}
+.nav-btn {
+    margin-right: 20px;
+}
+.nav-btn > button {
+    font-size: 0.87em;
+}
+.smumc_logo {
+    font-weight: bold;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    margin-left: -6px;
+}
+.smumc_logo > img {
+    width: 40px;
+    margin-right: 7px;
+}
+
+#contents1-logo > img {
+    max-width: 400px;
+    height: auto;
+}
+
+@media screen and (max-width: 767.9px) {
+    
+}
+
+@media screen and (max-width: 767.9px) {
+    nav {
+        /* background-color: lightblue; */
+    }
+    .smumc_logo > img {
+        max-width: 37.5px;
+        margin-right: 5px;
+    }
+    .smumc_logo > span {
+        display: none;
+    }
+    .nav-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+    .nav-btn-word > button {
+        font-size: 0.6rem;
+    }
+    .nav-btn-svg {
+        margin-top: 3px;
+    }
+}
+
+@media screen and (max-width: 599px) {
+    .smumc_logo > img {
+        max-width: 37.5px;
+        margin-right: 5px;
+        height: 26.4px;
+    }
+    .smumc_logo > span {
+        display: none;
+    }
+    .nav-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+    .nav-btn-word > button {
+        font-size: 0.6rem;
+    }
+    .nav-btn-svg {
+        margin-top: 3px;
+    }
+}
+
+@media screen and (max-width: 593.6px) {
+    .smumc_logo > img {
+        max-width: 37.5px;
+        margin-right: 5px;
+        height: 26.39px;
+    }
+}
