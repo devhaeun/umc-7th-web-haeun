@@ -1,23 +1,9 @@
 import MovieCard from "../../components/MovieCard";
-import axios from 'axios';
-import API_KEY from '../../apikey';
-import { useState, useEffect } from 'react';
 import CardContainer from '../../components/CardContainer';
+import useCustomFetch from "../../hooks/useCustomFetch";
 
 const UpComing = () => {
-    const [movies, setMovies] = useState([]);
-    
-    useEffect(() => {
-        const getMovies = async () => {
-            const movies = await axios.get(`https://api.themoviedb.org/3/movie/upcoming?language=ko&page=1`, {
-                headers: {
-                    Authorization: `Bearer ${API_KEY}`,
-                }
-            });
-            setMovies(movies);
-        }
-        getMovies();
-    }, []);
+    const {data:movies, isLoading, isError} = useCustomFetch(`/movie/upcoming?language=ko&page=1`);
 
     return (
         <>
