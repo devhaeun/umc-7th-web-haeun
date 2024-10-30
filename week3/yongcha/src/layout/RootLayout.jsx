@@ -23,7 +23,7 @@ export default RootLayout;
 
 const RootContainer = styled.div`
     height: 100vh;
-    min-width: 540px;
+    min-width: 1100px;
 `
 
 const MainContainer = styled.div`

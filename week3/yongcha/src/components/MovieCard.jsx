@@ -2,11 +2,10 @@
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom';
 
-
-const basePath = 'https://image.tmdb.org/t/p/w500';
+const basePath = import.meta.env.VITE_BASE_PATH;
 
 const MovieCard = ({posterPath, title, releaseDate, movieId}) => {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     return (
         <MovieCardDiv>
