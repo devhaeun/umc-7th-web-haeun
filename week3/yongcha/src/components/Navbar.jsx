@@ -11,7 +11,7 @@ const Navbar = () => {
                         YONGCHA
                     </LogoSpan>
                 </StyledLink>
-                </span>
+            </span>
             <span>
                 <StyledLink to='/login'>
                     <StyledBtn color2={'rgb(48,48,48)'}>로그인</StyledBtn>

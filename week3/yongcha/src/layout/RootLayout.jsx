@@ -35,7 +35,10 @@ const MainContainer = styled.div`
 
 const OutletContainer = styled.div`
     // display: inline-block;
+    flex-grow: 1;
     padding: 20px;
+    position: relative;
+    min-width: 900px;
 `
 
 const ScrollDiv = styled.div`
