@@ -2,7 +2,7 @@ import {useForm} from 'react-hook-form';
 import * as yup from 'yup';
 import {yupResolver} from '@hookform/resolvers/yup';
 import WhiteTitle from "../components/WhiteTitle";
-import styled from 'styled-components';
+import Style from '../components/styled-form';
 
 const Login = () => {
     const schema = yup.object().shape({
@@ -26,50 +26,23 @@ const Login = () => {
     }
 
     return (
-        <CenterDiv>
+        <Style.CenterDiv>
             <WhiteTitle>로그인</WhiteTitle>
             <form noValidate onSubmit={handleSubmit(onSubmit)}>
-                <StyledInput type={'email'} {...register("email")} />
-                <ErrorMessage style={{color: 'red'}}>{errors.email?.message}</ErrorMessage>
-                <StyledInput type={'password'} {...register("password")} />
-                <ErrorMessage style={{color: 'red'}}>{errors.password?.message}</ErrorMessage>
-                <SubmitInput type={'submit'} />
+                <Style.StyledInput type={'email'}
+                placeholder={"이메일을 입력해주세요"}
+                {...register("email")} />
+                <Style.ErrorMessage style={{color: 'red'}}>{errors.email?.message}</Style.ErrorMessage>
+                
+                <Style.StyledInput type={'password'}
+                placeholder={"비밀번호를 입력해주세요"}
+                {...register("password")} />
+                <Style.ErrorMessage style={{color: 'red'}}>{errors.password?.message}</Style.ErrorMessage>
+                
+                <Style.SubmitInput type={'submit'} />
             </form>
-        </CenterDiv>
+        </Style.CenterDiv>
     );
 };
 
 export default Login;
-
-const ErrorMessage = styled.p`
-    // margin-top: -10px;
-    margin-top: 5px;
-    margin-bottom: 20px;
-`
-
-const CenterDiv = styled.div`
-    text-align: center;
-    position: absolute;
-    // top: 50%;
-    left: 50%;
-    padding-top: 5em;
-    transform: translateX(-50%);
-    // transform: translate(-50%, -50%);
-`
-
-const StyledInput = styled.input`
-    width: 25em;
-    height: 3em;
-    border-radius: 5px;
-    // margin-bottom: 10px;
-`
-const SubmitInput = styled.input`
-    width: 25em;
-    height: 3em;
-    border-radius: 5px;
-    background-color: red;
-    color: white;
-    &:hover {
-        cursor: pointer;
-    }
-`
