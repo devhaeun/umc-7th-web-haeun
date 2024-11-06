@@ -27,7 +27,7 @@ const SubmitInput = styled.input`
     width: 25em;
     height: 3em;
     border-radius: 5px;
-    background-color: red;
+    background-color: ${props => props.disabled ? 'grey' : 'red'};
     color: white;
     &:hover {
         cursor: pointer;

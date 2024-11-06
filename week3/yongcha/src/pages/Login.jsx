@@ -16,7 +16,8 @@ const Login = () => {
         .min(8, '비밀번호는 8자 이상이어야 합니다.')
         .max(16, '비밀번호는 16자 이하여야 합니다.'),
     });
-    const {register, handleSubmit, formState: {errors}} = useForm({
+    const {register, handleSubmit, formState: {errors, isValid}} = useForm({
+        mode: 'onChange',
         resolver: yupResolver(schema)
     });
 
@@ -39,7 +40,7 @@ const Login = () => {
                 {...register("password")} />
                 <Style.ErrorMessage style={{color: 'red'}}>{errors.password?.message}</Style.ErrorMessage>
                 
-                <Style.SubmitInput type={'submit'} />
+                <Style.SubmitInput disabled={!isValid} type={'submit'} />
             </form>
         </Style.CenterDiv>
     );

@@ -21,7 +21,8 @@ const schema = yup.object().shape({
 });
 
 const Signup = () => {
-    const {register, handleSubmit, formState: {errors}} = useForm({
+    const {register, handleSubmit, formState: {errors, isValid}} = useForm({
+        mode: 'onChange',
         resolver: yupResolver(schema)
     });
 
@@ -49,7 +50,7 @@ const Signup = () => {
                 {...register("passwordCheck")} />
                 <Style.ErrorMessage style={{color: 'red'}}>{errors.passwordCheck?.message}</Style.ErrorMessage>
                 
-                <Style.SubmitInput type={'submit'} />
+                <Style.SubmitInput disabled={!isValid} type={'submit'} />
             </form>
         </Style.CenterDiv>
     );
