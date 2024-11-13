@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import WhiteTitle from "../components/WhiteTitle";
 import useCustomFetch from "../hooks/useCustomFetch";
 import CardContainer from "../components/CardContainer";
@@ -9,12 +9,23 @@ import StyledBtn from "../components/StyledBtn";
 
 const Search = () => {
     const [searchValue, setSearchValue] = useState('');
+    const [searchDebouncedValue, setSearchDebouncedValue] = useState('');
     const {data:movies, isLoading, isError} = useCustomFetch(`/search/movie?query=`
-        +searchValue+`&include_adult=false&language=ko&page=1`);
+        +searchDebouncedValue+`&include_adult=false&language=ko&page=1`);
 
     const onChange = (e) => {
         setSearchValue(e.target.value);
     };
+
+    useEffect(() => {
+        const debounceTimer = setTimeout(() => {
+            setSearchDebouncedValue(searchValue);
+        }, 500);
+
+        return () => {
+            clearTimeout(debounceTimer);
+        }
+    }, [searchValue]);
 
     if (isLoading) {
         return (
@@ -36,18 +47,18 @@ const Search = () => {
         )
     }
 
-    if (searchValue && movies.data?.results.length == 0) {
+    if (searchDebouncedValue && movies.data?.results.length == 0) {
         return (
             <>
                 <div>
                     <SearchInput
-                    value={searchValue}
+                    value={searchDebouncedValue}
                     onChange={onChange}
                     placeholder="영화 제목을 입력해주세요"
                     />
                     <SearchBtn>검색</SearchBtn>
                 </div>
-                <WhiteTitle>'{searchValue}'이(가) 현재 YONGCHA에 없습니다.</WhiteTitle>
+                <WhiteTitle>'{searchDebouncedValue}'이(가) 현재 YONGCHA에 없습니다.</WhiteTitle>
             </>
         )
     }
@@ -82,6 +93,7 @@ const SearchInput = styled.input`
     height: 3em;
     width: 87%;
     padding-left: 1em;
+    margin-bottom: 20px;
 `
 
 const SearchBtn = styled(StyledBtn)`
