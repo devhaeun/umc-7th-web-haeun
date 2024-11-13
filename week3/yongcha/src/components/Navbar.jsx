@@ -2,6 +2,7 @@
 import styled from 'styled-components';
 import StyledLink from "./StyledLink";
 import { useEffect, useState } from 'react';
+import StyledBtn from './StyledBtn';
 
 const Navbar = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -79,15 +80,15 @@ const LogoSpan = styled.span`
     margin: 10px;
 `
 
-const StyledBtn = styled.button`
-    background-color: ${props => props.color || 'black'};
-    &:hover {
-        background-color: ${props => props.color2}
-    };
-    border: 1px solid grey;
-    border-radius: 0.4em;
-    padding: 8px 14px;
-    cursor: pointer;
-    color: white;
-    margin-right: 15px;
-`
+// const StyledBtn = styled.button`
+//     background-color: ${props => props.color || 'black'};
+//     &:hover {
+//         background-color: ${props => props.color2}
+//     };
+//     border: 1px solid grey;
+//     border-radius: 0.4em;
+//     padding: 8px 14px;
+//     cursor: pointer;
+//     color: white;
+//     margin-right: 15px;
+// `
