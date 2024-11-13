@@ -1,42 +1,22 @@
-import { useState } from 'react'
+import { useContext } from 'react'
 import './App.css'
 import Input from './Input';
 import Btns from './Btns';
+import { TodoContext } from '../context/ToDoContext';
 
 const App = () => {
-  const [todos, setTodos] = useState([
-    {id: 1, task: '리액트 공부하기'},
-  ]);
-  const [editId, setEditId] = useState('');
-  const [editText, setEditText] = useState('');
-
-  const addTodo = (text) => {
-    if (text === '') return;
-    // 할 일 등록
-    setTodos((prevState) => [
-      ...prevState,
-      { id: Math.floor(Math.random()*100)+2, task: text },
-    ]);
-  };
-  const deleteTodo = (id) => {
-    setTodos((prev) => {
-      return prev.filter((todo) => todo.id !== id);
-    });
-  };
-  const isedit = (id, task) => {
-    setEditId(id);
-    setEditText(task);
-  }
-  const editTodo = (id, text) => {
-      setTodos((prev) => {
-        return prev.map((item) => (item.id === id ? {...item, task: text} : item));
-      });
-      setEditId('');
-      setEditText('');
-  }
+  const {
+    todos,
+    editId,
+    editText,
+    setEditText,
+    deleteTodo,
+    isedit,
+    editTodo
+  } = useContext(TodoContext);
   return (
     <>
-      <Input addTodoFunc={addTodo} />
+      <Input />
       <div className='todo-list-box'>
         {todos.map((todo, i) => {
           return <div key={todo.id} className='todo-list-content'>
@@ -55,8 +35,7 @@ const App = () => {
               </div>
             )}
             <div>
-              <Btns todo={todo} editId={editId} editText={editText} deleteTodo={deleteTodo}
-              isedit={isedit} editTodo={editTodo} />
+              <Btns todo={todo} />
             </div>
           </div>
         })}

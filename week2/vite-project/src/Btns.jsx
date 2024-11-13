@@ -1,7 +1,15 @@
+import { useContext } from 'react';
 import './App.css';
+import { TodoContext } from '../context/ToDoContext';
 
-const Btns = (props) => {
-    const {todo, editId, editText, deleteTodo, isedit, editTodo} = props;
+const Btns = ({todo}) => {
+    const {
+        editId,
+        editText,
+        deleteTodo,
+        isedit,
+        editTodo
+    } = useContext(TodoContext);
     return (
         <>
             {editId !== todo.id ?
