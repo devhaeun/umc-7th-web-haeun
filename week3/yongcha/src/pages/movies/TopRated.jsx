@@ -15,7 +15,7 @@ const TopRated = () => {
         isFetching,
         hasNextPage,
         fetchNextPage
-    } = useGetInfinite({category:'popular'});
+    } = useGetInfinite({category:'top_rated'});
     const {ref, inView} = useInView({
         threshold: 0,
     })

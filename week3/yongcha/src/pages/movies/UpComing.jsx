@@ -1,11 +1,6 @@
 import MovieCard from "../../components/MovieCard";
 import CardContainer from '../../components/CardContainer';
-// import useCustomFetch from "../../hooks/useCustomFetch";
-// import Loading from "../../components/Loading";
 import Error from "../../components/Error";
-import { useQuery } from "@tanstack/react-query";
-import { fetchMovies } from "../../hooks/fetchMovies";
-// import ShowSkeletons from "../../components/ShowSkeletons";
 import SkeletonCard from "../../components/SkeletonCard";
 import useGetInfinite from "../../hooks/useGetInfinite";
 import { useInView } from "react-intersection-observer";
@@ -20,20 +15,17 @@ const UpComing = () => {
         isFetching,
         hasNextPage,
         fetchNextPage
-    } = useGetInfinite({category:'popular'});
+    } = useGetInfinite({category:'upcoming'});
     const {ref, inView} = useInView({
         threshold: 0,
     })
-    // const {data:movies, isLoading, isError} = useCustomFetch(`/movie/upcoming?language=ko&page=1`);
-    // const {data:movies, isLoading, isError} = useQuery({
-    //     queryKey: ['movies', 'now_playing'],
-    //     queryFn: () => fetchMovies({category:'upcoming', pageParam:1})
-    // })
+
     useEffect(() => {
         if (inView) {
             !isFetching && hasNextPage && fetchNextPage();
         }
     }, [inView, isFetching, hasNextPage, fetchNextPage]);
+    
     if (isLoading) return (
         <>
         <CardContainer>
