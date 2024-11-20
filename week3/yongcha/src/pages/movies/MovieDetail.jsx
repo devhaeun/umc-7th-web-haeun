@@ -1,22 +1,49 @@
 import { useParams } from "react-router-dom";
-import useCustomFetch from "../../hooks/useCustomFetch";
+// import useCustomFetch from "../../hooks/useCustomFetch";
 import styled from 'styled-components';
 import WhiteTitle from "../../components/WhiteTitle";
-import Loading from "../../components/Loading";
+// import Loading from "../../components/Loading";
 import Error from "../../components/Error";
+import { useQuery } from "@tanstack/react-query";
+// import { fetchMovies } from "../../hooks/fetchMovies";
+import { axiosInstance } from "../../apis/axios-instance";
 
 const basePath = import.meta.env.VITE_BASE_PATH;
 
 const MovieDetail = () => {
     const { movieId } = useParams();
-    const { data:movieInfo, isLoading, isError} = useCustomFetch(`/movie/${movieId}?language=ko&append_to_response=images`);
+    const { data:movieInfo, isLoading, isError} = useQuery({
+        queryKey: ['movie_detail'],
+        queryFn: async () => await axiosInstance.get(`/movie/${movieId}?language=ko&append_to_response=images`)
+    })
+    // const { data:movieInfo, isLoading, isError} = useCustomFetch(`/movie/${movieId}?language=ko&append_to_response=images`);
     console.log('movieInfo: ',movieInfo);
-    const { data:movieCasts } = useCustomFetch(`/movie/${movieId}/credits?language=ko`);
+    // const { data:movieCasts } = useCustomFetch(`/movie/${movieId}/credits?language=ko`);
+    const { data:movieCasts } = useQuery({
+        queryKey: ['movie_casts'],
+        queryFn: async () => await axiosInstance.get(`/movie/${movieId}/credits?language=ko`)
+    })
     console.log('movieCasts: ',movieCasts);
 
-    if (movieInfo.length==0 || movieCasts.length==0 || isLoading) {
+    if (!movieInfo || !movieCasts || isLoading) {
         console.log('empty');
-        return <Loading />
+        return (
+        <>
+            <MovieInfoDiv>
+                <SkeletonPoster />
+            </MovieInfoDiv>
+            <div>
+                <WhiteTitle>감독/출연</WhiteTitle>
+                <Casts>
+                    {Array(10).fill().map((v,i) => (
+                        <CastDiv key={i}>
+                            <SkeletonCastDiv />
+                        </CastDiv>
+                    ))}
+                </Casts>
+            </div>
+        </>
+        )
     }
     if (isError) {
         return <Error />
@@ -40,22 +67,22 @@ const MovieDetail = () => {
                     ))}
                 </MovieInfoSection>
             </MovieInfoDiv>
-        <div>
-            <WhiteTitle>감독/출연</WhiteTitle>
-            <Casts>
-                {movieCasts.data.cast.map(v => (
-                    <CastDiv key={v.id}>
-                        <CastImg
-                        src={v.profile_path?basePath+v.profile_path:'/cast_no_img.svg'}
-                        alt={v.name} height={168}/>
-                        <NameDiv>
-                            <b>{v.name}</b>
-                            <CharName>{v.character}</CharName>
-                        </NameDiv>
-                    </CastDiv>
-                ))}
-            </Casts>
-        </div>
+            <div>
+                <WhiteTitle>감독/출연</WhiteTitle>
+                <Casts>
+                    {movieCasts.data.cast.map(v => (
+                        <CastDiv key={v.id}>
+                            <CastImg
+                            src={v.profile_path?basePath+v.profile_path:'/cast_no_img.svg'}
+                            alt={v.name} height={168}/>
+                            <NameDiv>
+                                <b>{v.name}</b>
+                                <CharName>{v.character}</CharName>
+                            </NameDiv>
+                        </CastDiv>
+                    ))}
+                </Casts>
+            </div>
         </>
     );
 }
@@ -87,7 +114,10 @@ const CastDiv = styled.div`
 const CastImg = styled.img`
     width: 7em;
     border-radius: 0.2em 0.2em 0 0;
-
+`
+const SkeletonCastDiv = styled.div`
+    height: 168px;
+    border-radius: 0.2em 0.2em 0 0;
 `
 
 const MovieInfoDiv = styled.div`
@@ -100,6 +130,12 @@ const MovieInfoDiv = styled.div`
 
 const Poster = styled.img`
     border-radius: 0.5em;
+`
+const SkeletonPoster = styled.div`
+    border-radius: 0.5em;
+    width: 300px;
+    height: 428.4px;
+    background-color: grey;
 `
 
 const MovieInfoSection = styled.div`
