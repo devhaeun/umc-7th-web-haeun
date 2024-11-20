@@ -7,13 +7,33 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchMovies } from "../../hooks/fetchMovies";
 // import ShowSkeletons from "../../components/ShowSkeletons";
 import SkeletonCard from "../../components/SkeletonCard";
+import useGetInfinite from "../../hooks/useGetInfinite";
+import { useInView } from "react-intersection-observer";
+import { useEffect } from "react";
+import SyncLoader from "react-spinners/SyncLoader";
 
 const UpComing = () => {
-    // const {data:movies, isLoading, isError} = useCustomFetch(`/movie/upcoming?language=ko&page=1`);
-    const {data:movies, isLoading, isError} = useQuery({
-        queryKey: ['movies', 'now_playing'],
-        queryFn: () => fetchMovies({category:'upcoming', pageParam:1})
+    const {
+        data:movies,
+        isLoading,
+        isError,
+        isFetching,
+        hasNextPage,
+        fetchNextPage
+    } = useGetInfinite({category:'popular'});
+    const {ref, inView} = useInView({
+        threshold: 0,
     })
+    // const {data:movies, isLoading, isError} = useCustomFetch(`/movie/upcoming?language=ko&page=1`);
+    // const {data:movies, isLoading, isError} = useQuery({
+    //     queryKey: ['movies', 'now_playing'],
+    //     queryFn: () => fetchMovies({category:'upcoming', pageParam:1})
+    // })
+    useEffect(() => {
+        if (inView) {
+            !isFetching && hasNextPage && fetchNextPage();
+        }
+    }, [inView, isFetching, hasNextPage, fetchNextPage]);
     if (isLoading) return (
         <>
         <CardContainer>
@@ -28,15 +48,20 @@ const UpComing = () => {
     return (
         <>
             <CardContainer>
-                {movies.results?.map((movie) => (
-                    <MovieCard key={movie.id}
-                    posterPath={movie.poster_path}
-                    title={movie.title}
-                    releaseDate={movie.release_date}
-                    movieId={movie.id}
-                    />
-                ))}
+                {movies?.pages.map((page) => {
+                    return page.results.map(movie => (
+                        <MovieCard key={movie.id}
+                        posterPath={movie.poster_path}
+                        title={movie.title}
+                        releaseDate={movie.release_date}
+                        movieId={movie.id}
+                        />
+                    ))
+                })}
             </CardContainer>
+            <div ref={ref}>
+                {isFetching && <SyncLoader color="white" />}
+            </div>
         </>
     );
 };
