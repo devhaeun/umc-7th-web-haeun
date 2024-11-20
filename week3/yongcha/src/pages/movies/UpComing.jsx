@@ -1,67 +1,61 @@
 import MovieCard from "../../components/MovieCard";
 import CardContainer from '../../components/CardContainer';
-// import useCustomFetch from "../../hooks/useCustomFetch";
-// import Loading from "../../components/Loading";
 import Error from "../../components/Error";
+import { useState } from "react";
+import SkeletonCardList from "../../components/SkeletonCardList";
 import { useQuery } from "@tanstack/react-query";
 import { fetchMovies } from "../../hooks/fetchMovies";
-// import ShowSkeletons from "../../components/ShowSkeletons";
-import SkeletonCard from "../../components/SkeletonCard";
-import useGetInfinite from "../../hooks/useGetInfinite";
-import { useInView } from "react-intersection-observer";
-import { useEffect } from "react";
-import SyncLoader from "react-spinners/SyncLoader";
+import StyledBtn from "../../components/StyledBtn";
+import { PageBtnDiv, PageSpan } from "../../components/pagination-style";
 
 const UpComing = () => {
+    const [page, setPage] = useState(1);
     const {
         data:movies,
         isLoading,
-        isError,
-        isFetching,
-        hasNextPage,
-        fetchNextPage
-    } = useGetInfinite({category:'popular'});
-    const {ref, inView} = useInView({
-        threshold: 0,
-    })
-    // const {data:movies, isLoading, isError} = useCustomFetch(`/movie/upcoming?language=ko&page=1`);
-    // const {data:movies, isLoading, isError} = useQuery({
-    //     queryKey: ['movies', 'now_playing'],
-    //     queryFn: () => fetchMovies({category:'upcoming', pageParam:1})
-    // })
-    useEffect(() => {
-        if (inView) {
-            !isFetching && hasNextPage && fetchNextPage();
-        }
-    }, [inView, isFetching, hasNextPage, fetchNextPage]);
+        isError
+    } = useQuery({
+        queryKey: ['movies', 'upcoming', page],
+        queryFn: () => fetchMovies({category:'upcoming', pageParam:page}),
+        keepPreviousData: true,
+    });
+
     if (isLoading) return (
-        <>
         <CardContainer>
-            {Array(18).fill().map((v,i) => (
-                <SkeletonCard key={i}/>
-            ))}
+            <SkeletonCardList />
         </CardContainer>
-        </>
     )
     if (isError) return <Error />
 
     return (
         <>
             <CardContainer>
-                {movies?.pages.map((page) => {
-                    return page.results.map(movie => (
-                        <MovieCard key={movie.id}
-                        posterPath={movie.poster_path}
-                        title={movie.title}
-                        releaseDate={movie.release_date}
-                        movieId={movie.id}
-                        />
-                    ))
-                })}
+                {movies?.results.map(movie => (
+                    <MovieCard key={movie.id}
+                    posterPath={movie.poster_path}
+                    title={movie.title}
+                    releaseDate={movie.release_date}
+                    movieId={movie.id}
+                    />
+                ))}
             </CardContainer>
-            <div ref={ref}>
-                {isFetching && <SyncLoader color="white" />}
-            </div>
+            <PageBtnDiv>
+                <StyledBtn
+                color={'red'} color2={'rgb(204,41,0)'}
+                onClick={() => setPage(old => Math.max(old-1, 0))}
+                disabled={page === 1}
+                >
+                    이전
+                </StyledBtn>
+                <PageSpan>{page}</PageSpan>
+                <StyledBtn
+                color={'red'} color2={'rgb(204,41,0)'}
+                onClick={() => setPage(old => old+1)}
+                disabled={ page === movies.total_pages }
+                >
+                    다음
+                </StyledBtn>
+            </PageBtnDiv>
         </>
     );
 };

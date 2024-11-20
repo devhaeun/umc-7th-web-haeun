@@ -10,5 +10,10 @@ const StyledBtn = styled.button`
     cursor: pointer;
     color: white;
     margin-right: 15px;
+    &:disabled {
+        background-color: grey;
+        cursor: default;
+    }
 `
+
 export default StyledBtn;
