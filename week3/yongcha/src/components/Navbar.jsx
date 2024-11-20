@@ -3,26 +3,50 @@ import styled from 'styled-components';
 import StyledLink from "./StyledLink";
 import { useEffect, useState } from 'react';
 import StyledBtn from './StyledBtn';
+import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
 
 const Navbar = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    // const [nickname, setNickname] = useState('');
+    const accessToken = localStorage.getItem('accessToken');
+    
+    const getUser = async () => {
+        try {
+            const { data } = await axios.get('http://localhost:3000/user/me', {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            return data;
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const { data: userInfo } = useQuery({
+        queryKey: ['userInfo'],
+        queryFn: () => getUser(),
+    });
+
+    const nickname = userInfo?.email.split('@', 1);
 
     useEffect(() => {
         const accessToken = localStorage.getItem('accessToken');
 
         if (accessToken) {
             setIsAuthenticated(true);
-        }
+        };
     }, []);
 
     const logout = () => {
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
-        localStorage.removeItem('nickname');
+        // localStorage.removeItem('nickname');
         setIsAuthenticated(false);
     };
 
-    const nickname = localStorage.getItem('nickname');
+    // const nickname = localStorage.getItem('nickname');
 
     return (
         <YongchaNav>

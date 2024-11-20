@@ -35,7 +35,7 @@ const Login = () => {
             console.log(response);
             localStorage.setItem('accessToken', response.data.accessToken);
             localStorage.setItem('refreshToken', response.data.refreshToken);
-            localStorage.setItem('nickname', data.email.split("@", 1));
+            // localStorage.setItem('nickname', data.email.split("@", 1));
             alert("로그인 성공");
             navigate('/', {});
             window.location.reload();
