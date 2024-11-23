@@ -5,11 +5,16 @@ import styled from "styled-components";
 import TodoBox from "./TodoBox";
 import TodoTitle from "./TodoTitle";
 import TodoContents from "./TodoContents";
+import { useQuery } from "@tanstack/react-query";
+import { getAllTodo } from "../apis/todoFunc";
 
 const SearchTodos = () => {
     const [searchValue, setSearchValue] = useState('');
     const [debounce, setDebounce] = useState('');
-    const {data, isLoading, isError} = useCustomFetch(`?title=${debounce}`);
+    const {data, isLoading, isError} = useQuery({
+        queryKey: ["todos", debounce],
+        queryFn: () => getAllTodo({title:debounce}),
+    })
 
     useEffect(() => {
         const debounceTimer = setTimeout(() => {
@@ -46,8 +51,6 @@ const SearchTodos = () => {
             </>
         )
     }
-
-    // console.log('data: ', data[0]);
 
     return (
         <div>
