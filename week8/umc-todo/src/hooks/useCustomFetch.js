@@ -10,7 +10,7 @@ const useCustomFetch = (id='') => {
     const fetchTodos = async (customId = todoId) => {
         setIsLoading(true);
         try {
-            const { data: response } = await axios.get(`http://localhost:3000/todo/${customId}`);
+            const { data: response } = await axios.get(`http://localhost:3000/todo${customId}`);
             setData(response);
             console.log('response: ',response);
         } catch (error) {
@@ -22,8 +22,8 @@ const useCustomFetch = (id='') => {
     };
 
     useEffect(() => {
-        fetchTodos();
-    }, []);
+        fetchTodos(id);
+    }, [id]);
 
     return {data, isLoading, isError, refetch: fetchTodos};
 }

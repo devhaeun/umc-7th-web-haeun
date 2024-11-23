@@ -6,6 +6,9 @@ import axios from 'axios';
 import useCustomFetch from "../hooks/useCustomFetch";
 import SyncLoader from "react-spinners/SyncLoader";
 import { useNavigate } from "react-router-dom";
+import TodoBox from "./TodoBox";
+import TodoTitle from "./TodoTitle";
+import TodoContents from "./TodoContents";
 
 const AllTodos = () => {
   const [title, setTitle] = useState('');
@@ -113,6 +116,15 @@ const AllTodos = () => {
   return (
     <>
     <CenterDiv>
+      <button
+      onClick={() => {
+        navigate('/search', {
+          state: {todo: todo[0]},
+        })
+      }}
+      >
+        검색
+      </button>
       <StyledForm onSubmit={onSubmit}>
         <TodoInput
         type="text"
@@ -204,17 +216,6 @@ const TodoBtn = styled.button`
   width: 500px;
   height: 35px;
 `
-
-const TodoBox = styled.div`
-  box-sizing: border-box;
-  width: 500px;
-  display: flex;
-  border: 1px solid grey;
-  border-radius: 0.8em;
-  padding: 0.7em 0.7em;
-  margin-bottom: 1em;
-  align-items: center;
-`
 const ReviseBtn = styled.button`
   width: 5.5em;
   height: 2.5em;
@@ -229,13 +230,4 @@ const ReviseBtn = styled.button`
     cursor: default;
     background-color: buttonface;
   }
-`
-const TodoTitle = styled.h5`
-  margin: 0;
-  margin-bottom: 5px;
-  font-size: 1em;
-`
-const TodoContents = styled.div`
-  flex: 1;
-  padding: 0 0.5em;
 `

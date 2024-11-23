@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RootLayout from "./layout/RootLayout";
 import AllTodos from "./pages/AllTodos";
 import TodoDetail from "./pages/TodoDetail";
+import SearchTodos from "./pages/SearchTodos";
 
 const router = createBrowserRouter([
   {
@@ -9,11 +10,15 @@ const router = createBrowserRouter([
     element: <RootLayout/>,
     children: [
       {
-        path: '/',
+        index: true,
         element: <AllTodos/>
       },
       {
-        path: '/:todoId',
+        path: 'search',
+        element: <SearchTodos/>
+      },
+      {
+        path: ':todoId',
         element: <TodoDetail/>
       },
     ]

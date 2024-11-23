@@ -6,7 +6,7 @@ import useCustomFetch from "../hooks/useCustomFetch";
 const TodoDetail = () => {
     const params = useParams();
     const [todo, setTodo] = useState([]);
-    const { data: todoData, isLoading, isError, refetch } = useCustomFetch(params.todoId);
+    const { data: todoData, isLoading, isError, refetch } = useCustomFetch(`/${params.todoId}`);
     const navigate = useNavigate();
     const [isEdit, setIsEdit] = useState(false);
     const [editTitle, setEditTitle] = useState('');
