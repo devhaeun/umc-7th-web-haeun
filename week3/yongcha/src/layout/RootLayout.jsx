@@ -1,18 +1,16 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import Sidebar from '../components/Sidebar';
 import styled from "styled-components";
 
 const RootLayout = () => {
     return (
         <ScrollDiv>
             <RootContainer>
-                <Navbar />
+                <FixedHeader>
+                    <Navbar />
+                </FixedHeader>
                 <MainContainer>
-                    <Sidebar />
-                    <OutletContainer>
-                        <Outlet />
-                    </OutletContainer>
+                    <Outlet />
                 </MainContainer>
             </RootContainer>
         </ScrollDiv>
@@ -21,24 +19,25 @@ const RootLayout = () => {
 
 export default RootLayout;
 
+const FixedHeader = styled.header`
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+`
+
 const RootContainer = styled.div`
     height: 100vh;
     min-width: 1100px;
 `
 
 const MainContainer = styled.div`
+    padding: 90px 40px 20px 40px;
     background-color: rgb(28, 40, 51);
     height: auto;
     min-height: 100%;
-    display: flex;
-`
-
-const OutletContainer = styled.div`
-    // display: inline-block;
-    flex-grow: 1;
-    padding: 20px;
     position: relative;
     min-width: 900px;
+    // display: flex;
 `
 
 const ScrollDiv = styled.div`
