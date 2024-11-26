@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import Style from '../components/styled-form';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useMutation } from "@tanstack/react-query";
 
 const schema = yup.object().shape({
     email: yup
@@ -22,30 +23,37 @@ const schema = yup.object().shape({
     .oneOf([yup.ref('password'), null], '비밀번호가 일치하지 않습니다')
 });
 
+const postSignup = async ({email, password, passwordCheck}) => {
+    const { data } = await axios.post('http://localhost:3000/auth/register', {
+        email,
+        password,
+        passwordCheck,
+    });
+    return data;
+}
+
 const Signup = () => {
     const {register, handleSubmit, formState: {errors, isValid}} = useForm({
         mode: 'onChange',
         resolver: yupResolver(schema)
     });
 
-    const navigate = useNavigate();
-
-    const onSubmit = async (data) => {
-        try {
-            const request = await axios.post('http://localhost:3000/auth/register', {
-                email: data.email,
-                password: data.password,
-                passwordCheck: data.passwordCheck,
-            }, { headers: { 'Content-Type': 'application/json' }});
-            console.log(data);
-
+    const { mutate:signupMutation } = useMutation({
+        mutationFn: postSignup,
+        onSuccess: (data) => {
             alert('회원가입 성공');
             navigate('/login', {});
-        }
-        catch (error) {
+        },
+        onError: (error) => {
             console.error('회원가입 실패:', error);
             alert('회원가입 실패');
         }
+    })
+
+    const navigate = useNavigate();
+
+    const onSubmit = async (data) => {
+        signupMutation({email:data.email, password:data.password, passwordCheck:data.passwordCheck});
     }
 
     return (

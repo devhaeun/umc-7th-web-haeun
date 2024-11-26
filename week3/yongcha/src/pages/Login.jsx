@@ -5,6 +5,7 @@ import WhiteTitle from "../components/WhiteTitle";
 import Style from '../components/styled-form';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useMutation} from '@tanstack/react-query';
 
 const schema = yup.object().shape({
     email: yup
@@ -18,6 +19,14 @@ const schema = yup.object().shape({
     .max(16, '비밀번호는 16자 이하여야 합니다.'),
 });
 
+const postLogin = async({email, password}) => {
+    const { data } = await axios.post('http://localhost:3000/auth/login', {
+        email,
+        password,
+    });
+    return data;
+}
+
 const Login = () => {
     const {register, handleSubmit, formState: {errors, isValid}} = useForm({
         mode: 'onChange',
@@ -25,25 +34,23 @@ const Login = () => {
     });
 
     const navigate = useNavigate();
-
-    const onSubmit = async(data) => {
-        try {
-            const response = await axios.post('http://localhost:3000/auth/login', {
-                email: data.email,
-                password: data.password,
-            });
-            console.log(response);
-            localStorage.setItem('accessToken', response.data.accessToken);
-            localStorage.setItem('refreshToken', response.data.refreshToken);
-            // localStorage.setItem('nickname', data.email.split("@", 1));
+    const { mutate:loginMutation } = useMutation({
+        mutationFn: postLogin,
+        onSuccess: (data) => {
+            localStorage.setItem('accessToken', data.accessToken);
+            localStorage.setItem('refreshToken', data.refreshToken);
             alert("로그인 성공");
             navigate('/', {});
             window.location.reload();
-        }
-        catch (error) {
-            console.error('로그인 실패:', error);
+        },
+        onError: (error) => {
+            console.error("로그인 실패:", error);
             alert('로그인 실패');
         }
+    })
+
+    const onSubmit = async(data) => {
+        loginMutation({email:data.email, password:data.password});
     }
 
     return (
