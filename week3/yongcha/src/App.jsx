@@ -14,8 +14,12 @@ import UpComing from './pages/movies/UpComing';
 import RootLayout from './layout/RootLayout';
 import Category from './pages/movies/Category';
 import MovieDetail from './pages/movies/MovieDetail';
+import { createContext } from 'react';
+import { VisibilityContext } from 'react-horizontal-scrolling-menu';
 
 const queryClient = new QueryClient();
+
+export const MyContext = createContext();
 
 const router = createBrowserRouter([
   {
@@ -71,7 +75,9 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <MyContext.Provider value={VisibilityContext}>
+        <RouterProvider router={router} />
+      </MyContext.Provider>
     </QueryClientProvider>
   )
 }
