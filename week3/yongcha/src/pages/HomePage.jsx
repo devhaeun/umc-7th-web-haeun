@@ -188,7 +188,7 @@ const BigImg = styled.img`
     }
 `
 
-const Div2 = styled.div`
+export const Div2 = styled.div`
     height: 80px;
     width: 100%;
     background-color: darkred;

@@ -13,7 +13,8 @@ import TopRated from './pages/movies/TopRated';
 import UpComing from './pages/movies/UpComing';
 import RootLayout from './layout/RootLayout';
 import Category from './pages/movies/Category';
-import MovieDetail from './pages/movies/MovieDetail';
+// import MovieDetail from './pages/movies/MovieDetail';
+import MovieDetail2 from './pages/movies/MovieDetail2';
 import { createContext } from 'react';
 import { VisibilityContext } from 'react-horizontal-scrolling-menu';
 
@@ -65,7 +66,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'movies/:movieId',
-        element: <MovieDetail />
+        element: <MovieDetail2 />
       }
     ]
   }
