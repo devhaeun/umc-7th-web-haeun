@@ -23,7 +23,7 @@ export default RootLayout;
 
 const FixedHeader = styled.header`
     position: fixed;
-    z-index: 2;
+    z-index: 11;
     width: 100%;
 `
 
@@ -38,7 +38,8 @@ const MainContainer = styled.div`
         const paddingLR = padding ? '10px' : '40px';
         return `padding: 90px ${paddingLR} 20px ${paddingLR};`
     }}
-    background-color: rgb(28, 40, 51);
+    // background-color: rgb(28, 40, 51);
+    background-color: black;
     height: auto;
     min-height: 100%;
     position: relative;
