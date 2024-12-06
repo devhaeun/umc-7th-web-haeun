@@ -11,7 +11,7 @@ const RootLayout = () => {
                 <FixedHeader>
                     <Navbar />
                 </FixedHeader>
-                <MainContainer padding={isHome}>
+                <MainContainer padding={isHome.toString()}>
                     <Outlet />
                 </MainContainer>
             </RootContainer>
@@ -35,7 +35,7 @@ const RootContainer = styled.div`
 const MainContainer = styled.div`
     // padding: 90px 40px 20px 40px;
     ${({ padding }) => {
-        const paddingLR = padding ? '10px' : '40px';
+        const paddingLR = padding==="true" ? '10px' : '40px';
         return `padding: 90px ${paddingLR} 20px ${paddingLR};`
     }}
     // background-color: rgb(28, 40, 51);

@@ -27,6 +27,7 @@ const Navbar = () => {
     const { data: userInfo } = useQuery({
         queryKey: ['userInfo'],
         queryFn: () => getUser({accessToken}),
+        enabled: isAuthenticated,
     });
 
     const nickname = userInfo?.email.split('@', 1);
