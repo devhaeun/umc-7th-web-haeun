@@ -13,9 +13,14 @@ import TopRated from './pages/movies/TopRated';
 import UpComing from './pages/movies/UpComing';
 import RootLayout from './layout/RootLayout';
 import Category from './pages/movies/Category';
-import MovieDetail from './pages/movies/MovieDetail';
+// import MovieDetail from './pages/movies/MovieDetail';
+import MovieDetail2 from './pages/movies/MovieDetail2';
+import { createContext } from 'react';
+import { VisibilityContext } from 'react-horizontal-scrolling-menu';
 
 const queryClient = new QueryClient();
+
+export const MyContext = createContext();
 
 const router = createBrowserRouter([
   {
@@ -61,7 +66,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'movies/:movieId',
-        element: <MovieDetail />
+        element: <MovieDetail2 />
       }
     ]
   }
@@ -71,7 +76,9 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <MyContext.Provider value={VisibilityContext}>
+        <RouterProvider router={router} />
+      </MyContext.Provider>
     </QueryClientProvider>
   )
 }

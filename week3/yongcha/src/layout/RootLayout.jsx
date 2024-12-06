@@ -1,18 +1,18 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import Sidebar from '../components/Sidebar';
 import styled from "styled-components";
 
 const RootLayout = () => {
+    const location = useLocation();
+    const isHome = location.pathname === '/'
     return (
         <ScrollDiv>
             <RootContainer>
-                <Navbar />
-                <MainContainer>
-                    <Sidebar />
-                    <OutletContainer>
-                        <Outlet />
-                    </OutletContainer>
+                <FixedHeader>
+                    <Navbar />
+                </FixedHeader>
+                <MainContainer padding={isHome}>
+                    <Outlet />
                 </MainContainer>
             </RootContainer>
         </ScrollDiv>
@@ -21,24 +21,31 @@ const RootLayout = () => {
 
 export default RootLayout;
 
+const FixedHeader = styled.header`
+    position: fixed;
+    z-index: 11;
+    width: 100%;
+`
+
 const RootContainer = styled.div`
     height: 100vh;
     min-width: 1100px;
 `
 
 const MainContainer = styled.div`
-    background-color: rgb(28, 40, 51);
+    // padding: 90px 40px 20px 40px;
+    ${({ padding }) => {
+        const paddingLR = padding ? '10px' : '40px';
+        return `padding: 90px ${paddingLR} 20px ${paddingLR};`
+    }}
+    // background-color: rgb(28, 40, 51);
+    background-color: black;
     height: auto;
     min-height: 100%;
-    display: flex;
-`
-
-const OutletContainer = styled.div`
-    // display: inline-block;
-    flex-grow: 1;
-    padding: 20px;
     position: relative;
     min-width: 900px;
+    display: flex;
+    flex-direction: column;
 `
 
 const ScrollDiv = styled.div`
