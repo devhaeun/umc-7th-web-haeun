@@ -131,6 +131,7 @@ export default HomePage;
 
 const TopImg = styled.img`
     width: 276px;
+    border-radius: 8px;
 `
 const UpcomingImg = styled.img`
     width: 300px;
@@ -199,14 +200,14 @@ export const Div2 = styled.div`
 
 const Div3 = styled.div`
     background-color: black;
-    border-radius: 8px;
+    // border-radius: 8px;
     width: 320px;
     height: 155px;
     margin-right: 20px;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    padding-left: 10px;
+    // padding-left: 10px;
     &:hover {
         cursor: pointer;
         filter: brightness(0.5);

@@ -137,11 +137,11 @@ const MovieDetail2 = () => {
             <StickyMenu>
                 <StickyMenuBtn
                 onClick={onClickInfo}
-                clicked={menu===0}
+                clicked={(menu===0).toString()}
                 >콘텐츠 정보</StickyMenuBtn>
                 <StickyMenuBtn
                 onClick={onClickRelated}
-                clicked={menu===1}
+                clicked={(menu===1).toString()}
                 >관련 콘텐츠</StickyMenuBtn>
             </StickyMenu>
             {
@@ -230,6 +230,11 @@ const LightgreyDiv = styled.div`
     margin-bottom: 15px;
     font-size: 15px;
     line-height: 23px;
+    // overflow: hidden;
+    // text-overflow: ellipsis;
+    // display: -webkit-box;
+    // -webkit-line-clamp: 3;
+    // -webkit-box-orient: vertical;
 `
 
 const WhiteSpan = styled.span`
@@ -298,9 +303,9 @@ const StickyMenu = styled.div`
 `
 const StickyMenuBtn = styled.button`
     background-color: transparent;
-    color: ${({ clicked }) => (clicked) ? 'white' : '#4f5152'};
+    color: ${({ clicked }) => (clicked==='true') ? 'white' : '#4f5152'};
     border: none;
-    border-bottom: ${({ clicked }) => (clicked) ? '2.5px solid white' : 'none'};
+    border-bottom: ${({ clicked }) => (clicked==='true') ? '2.5px solid white' : 'none'};
     padding: 14px 20px;
     font-size: 15px;
     &:hover {
