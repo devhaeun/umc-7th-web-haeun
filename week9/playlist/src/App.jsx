@@ -4,9 +4,14 @@ import { calculateTotal, clearCart, decrease, increase, removeItem } from "./sto
 import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBagShopping } from "@fortawesome/free-solid-svg-icons";
+import ModalPortal from "./components/ModalPortal";
+import Modal from "./components/Modal";
+import { openModal } from "./store/modalSlice";
 
 const App  = () => {
   const state = useSelector((store) => store.cart);
+  const { isOpen } = useSelector((store) => store.modal);
+
   const dispatch = useDispatch();
   // console.log('시작', state);
 
@@ -49,12 +54,18 @@ const App  = () => {
         </ItemDiv>
       ))}
 
+      {isOpen && <ModalPortal>
+        <Modal>
+          <H4>담아두신 모든 음반을 삭제하시겠습니까?</H4>
+        </Modal>
+      </ModalPortal>}
+
       <Hr />
       <InnerFlexDiv>
         <span>총 가격</span>
         <span>&#8361; {state.total}</span>
       </InnerFlexDiv>
-      <ResetBtn onClick={()=>dispatch(clearCart())}>장바구니 초기화</ResetBtn>
+      <ResetBtn onClick={()=>dispatch(openModal())}>장바구니 초기화</ResetBtn>
     </Container>
     </>
   )
@@ -149,4 +160,9 @@ const ResetBtn = styled.button`
     cursor: pointer;
     background-color:rgb(245, 245, 245);
   }
+`
+
+const H4 = styled.h4`
+  font-weight: bold;
+  font-size: 17px;
 `
