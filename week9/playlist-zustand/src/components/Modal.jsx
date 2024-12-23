@@ -1,18 +1,19 @@
 // import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import useCartStore from "../store/useCartStore";
+import {useCartStore} from "../store/useCartStore";
 import useModalStore from "../store/useModalStore";
 // import { clearCart } from "../store/cartSlice";
 // import { closeModal } from "../store/modalSlice";
 
 const Modal = ({ children }) => {
-    const { clearCart } = useCartStore();
+    const actions = useCartStore((state)=>state.actions);
+    // const { clearCart } = useCartStore();
     const { closeModal } = useModalStore();
     // const dispatch = useDispatch();
 
     const onClickYes = () => {
         console.log('yes');
-        clearCart();
+        actions.clearCart();
         closeModal();
         // dispatch(clearCart());
         // dispatch(closeModal());

@@ -11,30 +11,23 @@ import {useCartStore} from "./store/useCartStore";
 import useModalStore from "./store/useModalStore";
 
 const App  = () => {
-  // const state = useSelector((store) => store.cart);
-  const { cartItems,amount,total,
-    increase,
-    decrease,
-    removeItem,
-    calculateTotal,
-    clearCart
-  } = useCartStore();
+  // const { cartItems,amount,total, actions } = useCartStore();
+  const cartItems = useCartStore((state)=>state.cartItems);
+  const amount = useCartStore((state)=>state.amount);
+  const total = useCartStore((state)=>state.total);
+  const actions = useCartStore((state)=>state.actions);
   const { isOpen, openModal } = useModalStore();
-  // const { isOpen } = useSelector((store) => store.modal);
 
-  // const dispatch = useDispatch();
-  // console.log('시작', state);
-
+  console.log('리렌더링', amount, total);
   useEffect(() => {
     // console.log('디스패치');
-    calculateTotal();
-    // dispatch(calculateTotal());
-  }, [calculateTotal, cartItems]);
+    actions.calculateTotal();
+    // console.log(cartItems,amount, total);
+  }, [actions, cartItems]);
 
   const onDecrease = (id, amount) => {
-    if (amount===1) removeItem(id);
-    else decrease(id);
-    // else dispatch(decrease(id))
+    if (amount===1) actions.removeItem(id);
+    else actions.decrease(id);
   };
 
   return (
@@ -59,7 +52,7 @@ const App  = () => {
             <InfoSpan>&#8361; {music.price}</InfoSpan>
           </InfoDiv>
           <Btns>
-            <button onClick={()=>increase(music.id)}>+</button>
+            <button onClick={()=>actions.increase(music.id)}>+</button>
             <div>{music.amount}</div>
             <button onClick={()=>onDecrease(music.id, music.amount)}>-</button>
           </Btns>
