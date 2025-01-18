@@ -1,10 +1,11 @@
 import TodoContainer from "./components/TodoContainer";
+import { TodoProvider } from "./context/TodoContext";
 
 function App() {
   return (
-    <>
-    <TodoContainer />
-    </>
+    <TodoProvider>
+      <TodoContainer />
+    </TodoProvider>
   )
 }
 
